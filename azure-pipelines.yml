@@ -17,7 +17,7 @@ schedules:
 pool:
  vmImage: windows-latest
 variables:
- - group: AED-VG
+ - group: ANE-VG
 steps:
 - checkout: none
 #Script to clone and push to github
