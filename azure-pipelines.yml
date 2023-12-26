@@ -1,0 +1,33 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger:
+ - stage
+ - prelive
+ - main
+pr:
+- '*'
+schedules:
+- cron: '0 7 * * *'
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
+pool:
+ vmImage: windows-latest
+variables:
+ - group: AED-VG
+steps:
+- checkout: none
+#Script to clone and push to github
+- script: |
+    git clone -b $(Build.SourceBranchName) https://$(ADO-PAT)$(ADOGIT-URL)$(ADO-REPONAME)
+    cd $(ADO-REPONAME)
+    ls -l
+    pwd
+    git remote -v
+    git branch
+    git remote add github https://$(GITHUB-USER):$(GITHUB-PAT)$(GITHUB-URL)$(GITHUB-REPONAME)
+    git remote -v
+    git push github $(Build.SourceBranchName)
