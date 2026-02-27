@@ -1,0 +1,11 @@
+type Query {
+  aneStoreConfig: AneStoreConfig @resolver(class: "ANE\\ReactGraphQl\\Model\\Resolver\\StoreConfig")
+}
+
+type AneStoreConfig {
+  base_url: String
+  secure_base_url: String
+  store_name: String
+  locale: String
+  default_currency: String
+}
